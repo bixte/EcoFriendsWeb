@@ -1,0 +1,76 @@
+﻿@model EcoFriendsWeb.ViewModels.EventsViewModel;
+<div class="events">
+    <div class="events__content">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="events__content-create">
+                <a asp-action="CreateEvent" class="btn btn-primary-eco_md">Создать мероприятие</a>
+            </div>
+        }
+        <div class="events__content-navigation">
+            <h3>Актуально на данный момент</h3>
+        </div>
+        <div class="row flex-wrap mt-4 events__content-items justify-content-center justify-content-md-start">
+            @if (Model.EventPosts != null)
+            {
+                @foreach (var eventPost in Model.EventPosts)
+                {
+                    <div class="events__content-items-card">
+                        <div class="events__items-card_PopUpDelete @string.Concat("events__items-card_PopUpDelete_",eventPost.Id) collapse">
+                            <div class="events__items-card_PopUpDelete-block">
+                                <p>Вы дейсвительно хотите удалить?</p>
+                                <form method="post" asp-controller="Events" asp-action="DeleteEventPost" asp-route-id="@eventPost.Id">
+                                    <button class="btn btn-outline-danger">Удалить</button>
+                                </form>
+                            </div>
+                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <button data-toggle="collapse" class="events__content-items-card-delete btn" data-target="@string.Concat(".events__items-card_PopUpDelete_",eventPost.Id)">
+                                <span>
+                                    <svg width="65" height="65" viewBox="0 0 65 65" fill="#57BCAE" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22.9246 42.0754L42.0754 22.9246" stroke="#57BCAE" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M22.9246 22.9246L42.0754 42.0754" stroke="#57BCAE" stroke-width="1.5" stroke-linecap="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        }
+                        <div class="events__items-card-tags">
+                            <ul class="list-unstyled d-flex justify-content-between events-card-tags__list">
+                                @if (eventPost.Tags != null)
+                                {
+                                    @foreach (var tag in eventPost.Tags)
+                                    {
+                                        <li class="events-card-tags__list-item"> @tag </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <a class="events-items-card-link" asp-action="ViewEvent" asp-controller="Events" asp-route-id="@eventPost.Id">
+                            <div class="events-card__top">
+                                <img src="@eventPost.ImagesStore.FirstOrDefault()?.Path" width="300" height="220" />
+                            </div>
+                        </a>
+                        <a class="events-items-card-link" asp-action="ViewEvent" asp-controller="Events" asp-route-id="@eventPost.Id">
+                            <div class="events-card__body p-2">
+                                <div class="events-card__body-title">
+                                    <h5 class="events-card__body-title-text">@eventPost.Title</h5>
+                                </div>
+                                <div class="events-card__body-description">
+                                    @if (eventPost != null)
+                                    {
+                                        <p class="events-card__body-description-text">@eventPost.ShortDescription</p>
+                                    }
+                                </div>
+                            </div>
+                        </a>
+                        <div class="events-card__body-dateCreate p-2">
+                            <p class="events-card__body-dateCreate-text">@eventPost.TimeCreate</p>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+</div>

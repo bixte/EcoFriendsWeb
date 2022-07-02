@@ -1,0 +1,129 @@
+﻿/*all*/
+.maincontainer {
+    margin-top: 75px;
+}
+
+
+
+/*--------------Index blog posts ----------------------*/
+.blog__navigation .blog__navigation-btn {
+    color: #379683;
+}
+
+    .blog__navigation .blog__navigation-btn:hover {
+        color: white;
+    }
+
+.blog-post {
+    position: relative;
+}
+
+.blog-post_tags-link {
+    padding: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.blog-post-delete {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    z-index: 101;
+}
+
+    .blog-post-delete:focus {
+        box-shadow: none;
+    }
+
+.blog-post__popUpDelete {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: #000000a0;
+    transition: all linear .3s;
+}
+
+.blog-post__popUpDelete-block {
+    margin-top: 7rem;
+    text-align: center;
+    color: white;
+}
+
+.blog-post .blog-post-title .blog-post-title-link {
+    color: black;
+}
+
+
+/*--------------- partical post -------------------*/
+.post__partical .post__partical-title {
+    color: #05CDB8;
+    text-align: center;
+}
+
+.post__partical .post-subtexts_texstContainer .subTexts-subTitle {
+    color: #028577;
+}
+
+.post__partical .post__partical_carouselcontainer .carousel-inner .carousel-item-img {
+    max-height: 300px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .post__partical .post__partical-carouselcontainer {
+        max-width: 450px;
+    }
+}
+
+/* ----------------------*/
+
+/*--------------- Post ------------------*/
+
+@media only screen and (min-width: 768px) {
+    .post_mainSliderContainer .carousel-inner .carousel-item-img {
+        max-height: 650px;
+    }
+}
+
+
+/*----------------Footer---------------*/
+.comments__item-delete {
+    right: 0;
+    top: 0;
+    z-index: 101;
+}
+
+    .comments__item-delete:focus {
+        box-shadow: none;
+    }
+
+.comments__item-popUpdelete {
+    width: 100%;
+    background-color: #000000c7;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    align-items:center;
+    z-index:100;
+    transition:height linear .4s;
+}
+
+.popUpdeleteComment-content {
+    color: white;
+}
+
+.createComment-top__item, .commentAvatar__item {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.createComment-top__item-content, .commentAvatar__item-content {
+    width: 75px;
+    height:75px;
+}
+

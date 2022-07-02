@@ -1,0 +1,51 @@
+﻿.postCreateTitle {
+    font-size: 1.5rem;
+}
+
+.postCreate_mainSliderContainer-inner {
+    max-height: 650px;
+}
+
+.post__body-mainSliderFiles-length {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.post__body-mainSliderFiles-length:active,
+.post__body-mainSliderFiles-length:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    white-space: normal;
+    width: auto;
+}
+
+
+.tags-content__item-delete{
+    width:65px;
+    height:65px;
+    background: url('/img/delete.svg');
+}
+
+.subtext__title-label{
+    font-weight:700;
+}
+
+
+.post__partical-carousel{
+    max-width:450px;
+}
+
+
+.post__body-AddPartical-btn{
+    width:auto;
+}

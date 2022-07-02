@@ -1,0 +1,144 @@
+﻿
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+
+header {
+    background-color: #379683;
+}
+
+
+.navbar-light .navbar-brand {
+    color: #EDF5E1;
+}
+
+    .navbar-light .navbar-brand:hover {
+        color: white;
+    }
+
+.navbar-nav .nav-item .nav-link {
+    opacity: .7;
+}
+
+.navbar-nav .nav-item:hover .nav-link {
+    opacity: 1;
+}
+
+/*my styles*/
+.navbar-brand svg path {
+    transition:all 0.3s;
+}
+.navbar-brand:hover svg path{
+    fill:white;
+}
+
+
+.btn-primary-eco_sm {
+    width: 150px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: #EDF5E1;
+    color: #379683;
+    transition: all ease 0.3s;
+    font-size: 14px;
+}
+
+    .btn-primary-eco_sm:hover {
+        background-color: #379683;
+        color: white;
+    }
+
+.btn-primary-eco_md {
+    width: 240px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: #EDF5E1;
+    color: #379683;
+    transition: all ease 0.3s;
+}
+
+    .btn-primary-eco_md:hover {
+        background-color: #379683;
+        color: white;
+    }
+
+
+.input-primary-eco {
+    border: 1px,solid,#666060;
+    transition: all ease 0.3s;
+    color:black;
+}
+
+    .input-primary-eco:focus {
+        background-color: #379683;
+        color: white;
+    }

@@ -1,0 +1,226 @@
+﻿@model EcoFriendsWeb.ViewModels.EventPostViewModel
+@{
+    ViewData["Title"] = "Event";
+    string avatarDefaultPath = "/img/usersAvatar/default.png";
+}
+
+<div class="event">
+    <div class="event__top">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="row event__top-pictures">
+            <div id="carouselExampleIndicators" class="carousel slide col-xl-8 col-sm-12" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    @foreach (var item in @Model.EventPost.ImagesStore)
+                    {
+                        <div class="carousel-item">
+                            @if (item.Path != null)
+                            {
+                                <img class="w-100" src="@item.Path" />
+                            }
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="col-lg-12 col-xl-4 mt-sm-3 mt-2 mt-xl-0 row event__top-description">
+                <div>
+                    <span class="event__top-description-title">Что будет:</span>
+                    @if (@Model.EventPost.Desctiption != null)
+                    {
+                        <p class="event__top-description-text">@Model.EventPost.Desctiption</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="event__body mt-3">
+        <div>
+            <span class="event-body-title">Дополнительная информация</span>
+        </div>
+        <div class="event__body-text mt-2">
+            <div>
+                <p>@Model.EventPost.Text </p>
+                <p>@Model.EventPost.Text2</p>
+            </div>
+            <div class="event-body__contact d-flex justify-content-between flex-wrap">
+                <div>
+                    <span class="event-body__contact-title">Контакты:</span>
+                    @if (Model.EventPost.ContactPhone != null)
+                    {
+                        <div class="d-flex mt-2 event-body__contact-telephone">
+                            <span>
+                                <img class="event-body__contact-telephone-icon" src="~/img/telephone.png" width="32">
+                            </span>
+                            <span class="ml-2 event-body__contact-telephone-number">@Model.EventPost.ContactPhone</span>
+                        </div>
+                    }
+                    @if (Model.EventPost.ContactAdress !=null)
+                    {
+                        <div class="d-flex mt-3 event-body__contact-location">
+                            <span>
+                                <img class="event-body__contact-location-icon" width=32 src="~/img/location.png">
+                            </span>
+                            <span class="ml-2 event-body__contact-location-adress">@Model.EventPost.ContactAdress</span>
+                        </div>
+                    }
+                </div>
+                <div class="event-body__contact-create mt-2">
+                    <span class="event-body__contact-create-user">Опубликовал:</span>
+                    <div class="mt-2">
+                        <span>
+                            <img class="event-body__contact-email-icon" width=32 src="~/img/gmail.png" />
+                        </span>
+                        <span class="ml-2 event-body__contact-email-text">@Model.EventPost.ContactEmail</span>
+                    </div>
+                    @if (Model.EventPost.EventData != null)
+                    {
+                        <div class="mt-2">
+                            <span>
+                                <img class="event-body__contact-email-eventDate" width=32 src="~/img/calendar.png" />
+                            </span>
+                            <span class="ml-2 event-body__contact-email-text">@Model.EventPost.EventData</span>
+                        </div>
+                    }
+                </div>
+                <div class="mt-4 event-body__eventToAction">
+                    <form asp-route-idEvent="@Model.EventPost.Id" asp-route-userName="@User.Identity.Name" asp-action="EventUserAdd" method="post">
+                        <button type="submit" class="btn btn-primary-eco_md" @(!User.Identity.IsAuthenticated ? "disabled" : string.Empty)>Я буду участвовать</button>
+                    </form>
+
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="mt-2 autorisation">
+                            Для участия требуется
+                            <a class="autorisation-link" asp-action="Login" asp-controller="Account">авторизоваться</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="event__footer">
+        <div class="event__footer-content mt-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="event__footer-content-createComment createComment row">
+                <div class="createComment-top d-flex align-items-center">
+                    <div class=" createComment-top__item">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @inject Microsoft.AspNetCore.Identity.UserManager<EcoFriendsWeb.DataModels.User> userManager;
+                            var user = await userManager.FindByNameAsync(User.Identity.Name);
+
+                            <img class="createComment-top__item-content" src="@( user.AvatarPath !=null ? $"/img/usersAvatar/{user.AvatarPath}":avatarDefaultPath)" />
+
+                        }
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <img class="createComment-top__item-content" src="/img/usersAvatar/default.png" />
+                        }
+                    </div>
+                    <div class="createComment-top ml-3">
+                        <span class="event-createComment-content-top-name">@(User.Identity.Name ?? "Для того, чтобы оставить комментарий, требуется авторизоваться")</span>
+                    </div>
+                </div>
+                <div class="event__footer-content-createComment-content col-12">
+                    <form class="mt-4" method="post" asp-controller="Events" asp-action="CreateComment" asp-route-userName="@User.Identity.Name" asp-route-idEvent="@Model.EventPost.Id">
+                        <div>
+                            <textarea class="form-control" name="userComment" placeholder="Введите текст комментария" maxlength="1500"></textarea>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="mt-1 btn btn-primary-eco_sm">Добавить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @if (@Model.EventPost.Comments != null)
+            {
+                <div class="event__footer-content-comments comments d-flex flex-column-reverse">
+                    @foreach (var comment in Model.EventPost.Comments)
+                    {
+                        string commentid = string.Concat("comment_", @comment.Id);
+                        <div class="position-relative comments__item row">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <button data-target=".@commentid" data-toggle="collapse" class="btn position-absolute comments__item-delete p-0">
+                                    <svg width="45" height="45" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22.9246 42.0754L42.0754 22.9246" stroke="#57BCAE" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M22.9246 22.9246L42.0754 42.0754" stroke="#57BCAE" stroke-width="1.5" stroke-linecap="round" />
+                                    </svg>
+                                </button>
+                                <div class="comments__item-popUpdelete popUpdeleteComment  @commentid collapse">
+                                    <div class=" mr-sm-0 mr-3 popUpdeleteComment-content">
+                                        <span class="mr-2">Вы действительно хотите удалить?</span>
+                                        <form method="post" asp-controller="Events" asp-action="DeleteComment" asp-route-idEvent="@Model.EventPost.Id" asp-route-idComment="@comment.Id" class="text-center">
+                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                            <div class="comments__item-avatar commentAvatar align-items-center d-flex">
+                                <div class="commentAvatar__item">
+                                    <img class="commentAvatar__item-content" src="@(comment.User.AvatarPath !=null ? $"/img/usersAvatar/{comment.User.AvatarPath}" : avatarDefaultPath)" />
+                                </div>
+                                <div class="comments__item-content-top commentTop ml-3 d-flex">
+                                    <span class="commentTop-name">@comment.User?.UserName</span>
+                                    @{
+                                        string dateCreateFull = DateTime.Parse(comment.DataCreate).ToString("d");
+                                        string dateCreate = "";
+                                        if (dateCreateFull == DateTime.Now.ToString("d"))
+                                        {
+                                            dateCreate = DateTime.Parse(comment.DataCreate).ToString("t");
+                                        }
+                                        else if (dateCreateFull == DateTime.Now.Subtract(TimeSpan.FromDays(1)).ToString("d"))
+                                        {
+                                            dateCreate = $"Вчера в {DateTime.Parse(comment.DataCreate).ToString("t")}";
+                                        }
+                                        else
+                                        {
+                                            dateCreate = DateTime.Parse(comment.DataCreate).ToString("M");
+                                        }
+                                    }
+                                    <span class="event-user-content__top-dataCreate ml-2">@dateCreate</span>
+                                </div>
+                            </div>
+                            <div class="comments__item-content col-12">
+                                <div class="mt-4 comments__item-content-body commentBody">
+                                    @{
+                                        string commentString = comment.Text.Length < 200 ? comment.Text : comment.Text.Substring(0, 200);
+                                    }
+                                    <span class="mt-4 commentBody-text">
+                                        @commentString
+                                    </span>
+                                    @if (comment.Text.Length > 200)
+                                    {
+                                        <span>...</span>
+                                        <button type="button" onclick="this.classList.add('collapse')" data-target=".event-user-content__body-more" data-toggle="collapse" class="btn">читать далее</button>
+                                        <span class="event-user-content__body-more collapse">@comment.Text.Substring(200)</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script asp-append-version="true">
+    $('.carousel').carousel();
+    $('.carousel-inner > .carousel-item:first-child').addClass('active');
+</script>
+    }

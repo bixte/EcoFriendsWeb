@@ -1,0 +1,115 @@
+﻿@model EcoFriendsWeb.ViewModels.UserViewModels
+@{
+    ViewData["Title"] = "Profile";
+}
+@section CssStyle{
+<link rel="stylesheet" asp-href-include="~/css/account/**.css" asp-append-version="true" />
+}
+@if (User?.Identity.Name == Model.User?.UserName)
+{
+    <div class="profile">
+        <div class="changePhotoPopUp profile__changePhotoPopUp position-fixed collapse">
+            <div class="container">
+                <div class="p-3 changePhotoPopUp-content">
+                    <div class="changePhotoPopUp-content__top d-flex justify-content-between align-items-center">
+                        <span>Загрузка новой фотографии</span>
+                        <span class="changePhotoPopUp-content__top-cancel" onclick="$('.changePhotoPopUp').removeClass('show')">
+                            <svg width="65" height="65" viewBox="0 0 65 65" fill="#57BCAE" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.9246 42.0754L42.0754 22.9246" stroke="#57BCAE" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M22.9246 22.9246L42.0754 42.0754" stroke="#57BCAE" stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                        </span>
+                    </div>
+                    <hr />
+                    <div class="changePhotoPopUp-content__body mt-3">
+                        <span>
+                            Другим участникам будет проще узнать вас, если вы загрузите свою настоящую фотографию.
+                            Вы можете загрузить изображение в формате JPG, GIF или PNG.
+                        </span>
+                        <form class="mt-4 d-flex justify-content-between flex-wrap" asp-route-userName="@User.Identity.Name" asp-action="ChangePhoto" method="post" enctype="multipart/form-data">
+                            <input type="file" name="avatar" />
+                            <button type="submit" class="mt-md-0 mt-3 btn btn-primary-eco_md">Загрузить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            <a asp-action="SignOutAccount" asp-controller="Account" class="btn btn-outline-danger">Выйти</a>
+        </div>
+        <div class="profile_avatar avatar">
+            <div class=" d-flex justify-content-center avatar__content">
+                <div class="position-relative avatar__content-item">
+                    <img class="avatar__content-item-img w-100 h-100" src="/img/usersAvatar/@(Model.User.AvatarPath ?? "default.png")" />
+                    <div class="position-absolute pt-2 avatar__content-item-changePhoto">
+                        <span class="avatar__content-item-changePhoto-select" onclick="$('.changePhotoPopUp').addClass('show')">Изменить фотографию?</span>
+                        <form method="post" asp-route-userName="@User.Identity.Name" asp-action="DeletePhotoProfile">
+                            <button class="mt-1 btn p-0 avatar__content-item-changePhoto-delete" type="submit" >Удалить фотографию</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profile__data">
+            <form class="form-row justify-content-sm-center mt-4" method="post" asp-action="ChangeDataUser" asp-route-userName="@User.Identity.Name">
+                <div class="form-group col-sm-12">
+                    <label asp-for="User.Description"></label>
+                    <textarea class="form-control" asp-for="User.Description" name="description"></textarea>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <span asp-validation-for=User.UserName></span>
+                        <label asp-for="User.UserName"></label>
+                        <input class="form-control input-primary-eco " disabled asp-for="User.UserName" name="userName" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <span asp-validation-for=User.Email></span>
+                        <label asp-for="User.Email"></label>
+                        <input class="form-control input-primary-eco" asp-for="User.Email" name="email" type="text" />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="form-group col-8 col-sm-12 pl-0">
+                        <span asp-validation-for=User.City></span>
+                        <label asp-for="User.City"></label>
+                        <input class="form-control input-primary-eco" asp-for="User.City" name="city" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <span asp-validation-for=User.Adress></span>
+                        <label asp-for="User.Adress"></label>
+                        <input class="form-control input-primary-eco" asp-for="User.Adress" name="adress" type="text" />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 ml-md-2 ">
+                    <div class="form-group col-6 pl-0 col-sm-12">
+                        <span asp-validation-for=User.PhoneNumber></span>
+                        <br />
+                        <label asp-for="User.PhoneNumber"></label>
+                        <input class="form-control input-primary-eco" asp-for="User.PhoneNumber" name="phoneNumber" type="text" />
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <button class="btn btn-outline-danger" type="submit">Изменить</button>
+                </div>
+            </form>
+            <div class="profile__password mt-4">
+                <button data-target=".changePassowrd" data-toggle="collapse" class="btn btn-warning">Изменить пароль</button>
+                <form method="post" asp-controller="Account" asp-action="ChangePassowrd" class="collapse form-row changePassowrd" asp-route-userName="@User.Identity.Name">
+                    <div class="password__content col-12">
+                        <div class="form-group col-sm-6 col-12 pl-0">
+                            <label asp-for="NowPassword"></label>
+                            <input asp-for="NowPassword" class="form-control input-primary-eco" type="password" />
+                        </div>
+                        <div class="form-group col-sm-6 col-12 pl-0">
+                            <label asp-for="NewPassword"></label>
+                            <input asp-for="NewPassword" class="form-control input-primary-eco" type="password" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger">Подтвердить изменение</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+<partial name="_ValidationScriptsPartial"></partial>
+

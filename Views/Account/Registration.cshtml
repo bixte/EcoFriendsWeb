@@ -1,0 +1,51 @@
+﻿@model EcoFriendsWeb.ViewModels.RegistrationViewModel
+@{
+    ViewData["Title"] = "Registration";
+}
+@section CssStyle{
+<link rel="stylesheet" asp-href-include="~/css/account/*.css" asp-append-version="true" />
+}
+
+<div>
+    <h1 class="text-center">Регистрация</h1>
+    <form method="post" style="margin-top:100px">
+        <div class="row justify-content-center">
+            <div class="col-8 offset-lg-2 text-danger" asp-validation-summary="ModelOnly"></div>
+            <div class="col-8 col-sm-5 order-1">
+                <div class="form-group">
+                    <span asp-validation-for=NickName></span>
+                    <label class="mb-2 mb-sm-2" asp-for="NickName"></label>
+                    <input class="form-control input-primary-eco" asp-for="NickName" placeholder="Оно должно быть очень уникальным" />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for=Password></span>
+                    <label class="mb-2 mb-sm-2" asp-for="Password"></label>
+                    <input class="form-control input-primary-eco" type="password" asp-for="Password" />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for=ConfirmPassword></span>
+                    <label class="mb-2 mb-sm-2" asp-for="ConfirmPassword"></label>
+                    <input class="form-control input-primary-eco" type="password" asp-for="ConfirmPassword" />
+                </div>
+            </div>
+            <div class="col-8 col-sm-5 order-2">
+                <div class="form-group">
+                    <span asp-validation-for=Email></span>
+                    <label class="mb-2 mb-sm-2" asp-for="Email"></label>
+                    <input class="form-control input-primary-eco" asp-for="Email" />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for=Phone></span>
+                    <label class="mb-2 mb-sm-2" asp-for="Phone"></label>
+                    <input class="form-control input-primary-eco" asp-for="Phone" />
+                </div>
+            </div>
+            <div class="col-sm-10 col-8 order-3 mt-3">
+                <button type="submit" class="btn btn-primary-eco_md">Зарегистрироваться</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+<partial name="_ValidationScriptsPartial"></partial>
+}
